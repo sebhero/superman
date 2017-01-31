@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello websocket</title>
+</head>
+<body>
+<div ng-app="theApp">
+    <div ng-controller="theCtrl">
+        <p>Input something in the input box:</p>
+        <p>Name : <input type="text" ng-model="name" placeholder="Enter name here"></p>
+        <h1>Hello {{name}}</h1>
+        <div>{{hello}}</div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
+<!--<script src="js/app.js"></script>-->
+<script>
+    var app = angular.module('theApp',[]);
+    app.controller('theCtrl', ['$scope',function ($scope) {
+        console.log("hello");
+        $scope.hello = 'hello world';
+    }]);
+</script>
+</body>
+</html>
