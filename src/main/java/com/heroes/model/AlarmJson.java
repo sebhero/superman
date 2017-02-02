@@ -4,25 +4,38 @@ package com.heroes.model;
  * Created by Sebastian Boreback on 2017-01-24.
  */
 public class AlarmJson {
-    String type;
-    String data;
+    String magnetSensor;
+    String pirSensor;
 
     public AlarmJson() {
     }
 
-    public String getType() {
-        return type;
+    public AlarmJson(String magnetSensor, String pirSensor) {
+        this.magnetSensor = magnetSensor;
+        this.pirSensor = pirSensor;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public String getMagnetSensor() {
+        return magnetSensor;
     }
 
-    public String getData() {
-        return data;
+    public void setMagnetSensor(String magnetSensor) {
+        this.magnetSensor = magnetSensor;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public String getPirSensor() {
+        return pirSensor;
+    }
+
+    public void setPirSensor(String pirSensor) {
+        this.pirSensor = pirSensor;
+    }
+
+    @Override
+    public String toString() {
+        return "AlarmJson{" +
+                "magnetSensor='" + magnetSensor + '\'' +
+                ", pirSensor='" + pirSensor + '\'' +
+                '}';
     }
 }

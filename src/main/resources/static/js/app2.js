@@ -17,7 +17,7 @@ function setConnected(connected) {
 var ws;
 function connect() {
     console.log("try to connect");
-    ws = new WebSocket('ws://localhost:8080/alarms');
+    ws = new WebSocket('ws://192.168.0.10:8080/alarms');
     ws.onopen = function (event) {
         console.log("open socket session");
         

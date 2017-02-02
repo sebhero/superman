@@ -1,16 +1,15 @@
 package com.heroes.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Calendar;
 
 /**
  * Created by Sebastian Boreback on 2017-01-24.
  */
 @Entity
+@Table(name = "alarms")
 public class AlarmEvent {
+    //REST /AlarmEvents
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
