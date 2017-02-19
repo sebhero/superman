@@ -28,6 +28,10 @@ public class AlarmEvent {
         this.timestamp = Calendar.getInstance().getTimeInMillis();
     }
 
+    public long getId() {
+        return id;
+    }
+
     public String getMagnetSensor() {
         return magnetSensor;
     }

@@ -29,6 +29,7 @@ package com.heroes.configs;
 //}
 
 import com.heroes.repository.AlarmEventRepository;
+import com.heroes.repository.CamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -41,12 +42,20 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 public class WebSocketConfig implements WebSocketConfigurer{
 
     @Autowired
-    private AlarmEventRepository repository;
+    private AlarmEventRepository alarmEventRepository;
+
+    @Autowired
+    private CamRepository camRepository;
+
+//    public SocketHandler socketHandler = new SocketHandler(alarmEventRepository,camRepository);
+    @Autowired
+    SocketHandler socketHandler;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+
 //        registry.addHandler(new SocketHandler(), "/questions").setAllowedOrigins("*");
-        registry.addHandler(new SocketHandler(repository), "/alarms").setAllowedOrigins("*");
+        registry.addHandler(socketHandler, "/alarms").setAllowedOrigins("*");
 
     }
 }

@@ -17,13 +17,13 @@ function setConnected(connected) {
 var ws;
 function connect() {
     console.log("try to connect");
-    ws = new WebSocket('ws://192.168.0.10:8080/alarms');
+    ws = new WebSocket('ws://localhost:8080/alarms');
     ws.onopen = function (event) {
         console.log("open socket session");
         
     };
     ws.onerror = function (error) {
-        console.log("error: " + error);
+        console.log("error: " + JSON.stringify(error));
     };
     ws.onmessage = function (data) {
         console.log("got message from server");

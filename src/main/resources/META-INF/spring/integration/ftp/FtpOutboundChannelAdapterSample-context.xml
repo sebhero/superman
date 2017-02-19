@@ -1,0 +1,24 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+       <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+       <!--xmlns:int="http://www.springframework.org/schema/integration"-->
+       <!--xmlns:context="http://www.springframework.org/schema/context"-->
+       <!--xmlns:int-ftp="http://www.springframework.org/schema/integration/ftp"-->
+       <!--xsi:schemaLocation="http://www.springframework.org/schema/integration/ftp http://www.springframework.org/schema/integration/ftp/spring-integration-ftp.xsd-->
+		<!--http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd-->
+		<!--http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd-->
+		<!--http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">-->
+
+    <!--<int:channel id="ftpChannelOutbound"/>-->
+
+    <!--<int-ftp:outbound-channel-adapter-->
+            <!--id="ftpOutbound"-->
+            <!--channel="ftpChannelOutbound"-->
+            <!--remote-directory="/"-->
+            <!--session-factory="ftpSessionFactory">-->
+        <!--<int-ftp:request-handler-advice-chain>-->
+            <!--<int:retry-advice />-->
+        <!--</int-ftp:request-handler-advice-chain>-->
+    <!--</int-ftp:outbound-channel-adapter>-->
+
+<!--</beans>-->
