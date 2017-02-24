@@ -12,6 +12,10 @@ import java.util.List;
 /**
  * Created by Sebastian Boreback on 2017-01-31.
  */
+
+/***
+ * Handle communication with MySQL. Using JPA to connect to MySQL
+ */
 @RepositoryRestResource
 public interface AlarmEventRepository extends PagingAndSortingRepository<AlarmEvent, Long> {
     List<AlarmEvent> findByMagnetSensor(@Param("magnetSensor") String magnetSensor);

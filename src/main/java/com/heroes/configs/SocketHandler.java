@@ -2,10 +2,7 @@ package com.heroes.configs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.heroes.model.AlarmEvent;
-import com.heroes.model.AlarmJson;
-import com.heroes.model.CamImage;
 import com.heroes.repository.AlarmEventRepository;
-import com.heroes.repository.CamRepository;
 import org.apache.commons.net.ftp.FTPFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,11 +41,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * Created by Sebastian Boreback on 2017-01-17.
  */
+
+//Hanldes websocket communication
 @Component
 public class SocketHandler extends TextWebSocketHandler {
 
     private static final Logger log = LoggerFactory.getLogger(SocketHandler.class);
-    private final CamRepository camRepository;
     private final AlarmEventRepository alarmEventRepository;
 
 
@@ -59,37 +57,36 @@ public class SocketHandler extends TextWebSocketHandler {
 
 
     @Autowired
-    public SocketHandler(AlarmEventRepository alarmEventRepository, CamRepository camRepository) {
+    public SocketHandler(AlarmEventRepository alarmEventRepository) {
         this.alarmEventRepository = alarmEventRepository;
-        this.camRepository = camRepository;
     }
 
 
+    //handles messages from websocket clients
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        log.info("got: " + message.getPayload());
+//        log.info("got: " + message.getPayload());
 
-        sessions.forEach(s->{
+        sessions.forEach(s -> {
             try {
-                s.sendMessage(new TextMessage("AlarmEvent{id=10070, magnetSensor='0', pirSensor='1', timestamp=1487336246129}"));
+                s.sendMessage(new TextMessage(message.getPayload()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
-//        session.sendMessage(new TextMessage("Thansk, from server:"+message.getPayload()));
-
     }
 
+    //After client connected add new connection to list of connection
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        log.info("session: "+session.getAcceptedProtocol());
+        log.info("session: " + session.getAcceptedProtocol());
         log.info("add new ws connection " + session.getId());
         //add new connections to list of sessions
         sessions.add(session);
 
         //show pics saved on server
         if (pics.size() > 0) {
-            pics.forEach(pic->{
+            pics.forEach(pic -> {
                 try {
                     session.sendMessage(new TextMessage(pic));
                 } catch (IOException e) {
@@ -102,12 +99,11 @@ public class SocketHandler extends TextWebSocketHandler {
         try {
             if (alarmEventRepository != null) {
                 long count = alarmEventRepository.count();
-                int page= (int) (count/20);
-                for (AlarmEvent alarmEvent : alarmEventRepository.findAll(new PageRequest(page,20))) {
+                int page = (int) (count / 20);
+                for (AlarmEvent alarmEvent : alarmEventRepository.findAll(new PageRequest(page, 20))) {
                     session.sendMessage(new TextMessage(alarmEvent.toString()));
                 }
-            }
-            else
+            } else
                 log.info("alarm rep is null");
         } catch (IOException e) {
             e.printStackTrace();
@@ -115,6 +111,7 @@ public class SocketHandler extends TextWebSocketHandler {
 
     }
 
+    //after connection is lost remove client
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 //        super.afterConnectionClosed(session, status);
@@ -123,6 +120,7 @@ public class SocketHandler extends TextWebSocketHandler {
         log.info("connection closed: " + session.toString());
     }
 
+    //Send ftp updates to client about new images
     public void sendFtpUpdate(String payload) {
         log.info("ws send from ftp");
         for (WebSocketSession session : sessions) {
@@ -134,26 +132,26 @@ public class SocketHandler extends TextWebSocketHandler {
         }
     }
 
-    public void addFtpstuff(String picpath) {
-        String st1 = picpath.replace("\\", ",");
-        String[] str = st1.split(",");
-        String send="";
-        for (String s : str) {
-            if (s.contains(".jpg")) {
-                log.info(s);
-                send=s;
-                for (WebSocketSession session : sessions) {
-                    try {
-                        session.sendMessage(new TextMessage(s));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-        log.info("ftpgot: "+picpath);
-        this.pics.add(send);
-
-    }
+//    public void addFtpstuff(String picpath) {
+//        String st1 = picpath.replace("\\", ",");
+//        String[] str = st1.split(",");
+//        String send = "";
+//        for (String s : str) {
+//            if (s.contains(".jpg")) {
+//                log.info(s);
+//                send = s;
+//                for (WebSocketSession session : sessions) {
+//                    try {
+//                        session.sendMessage(new TextMessage(s));
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }
+//        log.info("ftpgot: " + picpath);
+//        this.pics.add(send);
+//
+//    }
     //end of class
 }

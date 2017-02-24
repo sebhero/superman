@@ -6,6 +6,10 @@ import java.util.Calendar;
 /**
  * Created by Sebastian Boreback on 2017-01-24.
  */
+
+/**
+ * A model of the alarm
+ */
 @Entity
 @Table(name = "alarms")
 public class AlarmEvent {
