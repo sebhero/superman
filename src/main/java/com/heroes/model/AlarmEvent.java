@@ -18,9 +18,9 @@ public class AlarmEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    String magnetSensor;
-    String pirSensor;
-    long timestamp;
+    private String magnetSensor;
+    private String pirSensor;
+    private long timestamp;
 
     public AlarmEvent() {
         this.timestamp = Calendar.getInstance().getTimeInMillis();

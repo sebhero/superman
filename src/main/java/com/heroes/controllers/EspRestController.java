@@ -22,9 +22,11 @@ public class EspRestController {
     private static final Logger log = LoggerFactory.getLogger(EspRestController.class);
 
     @Autowired
+    private
     SocketHandler sh;
 
     @Autowired
+    private
     AlarmEventRepository alarmEventRepository;
 
     //handles alarm events from esp8266

@@ -1,12 +1,8 @@
 package com.heroes;
 
-import com.heroes.configs.SocketHandler;
-import com.heroes.repository.AlarmEventRepository;
 import org.apache.commons.net.ftp.FTPFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -17,8 +13,7 @@ import org.springframework.integration.file.remote.session.CachingSessionFactory
 import org.springframework.integration.file.remote.session.SessionFactory;
 import org.springframework.integration.ftp.session.DefaultFtpSessionFactory;
 
-import java.io.*;
-import java.nio.file.*;
+import java.io.File;
 
 @SpringBootApplication
 public class SupermanApplication {

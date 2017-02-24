@@ -23,6 +23,7 @@ public class WebSocketConfig implements WebSocketConfigurer{
     private AlarmEventRepository alarmEventRepository;
 
     @Autowired
+    private
     SocketHandler socketHandler;
 
     @Override
