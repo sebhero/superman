@@ -36,24 +36,28 @@ public class EspRestController {
         AlarmEvent got = null;
 //        log.info("REST event:[" + data + "]");
         //save to DB
-        if (data.equals("PIR")) {
+        switch (data) {
+            case "PIR":
 
-            try {
-                got = this.alarmEventRepository.save(new AlarmEvent("0", "1"));
-                log.info("saved: " + got.toString());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if (data.equals("MAGNET")) {
+                try {
+                    got = this.alarmEventRepository.save(new AlarmEvent("0", "1"));
+                    log.info("saved: " + got.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "MAGNET":
 
-            try {
-                got = this.alarmEventRepository.save(new AlarmEvent("1", "0"));
-                log.info("saved: " + got.toString());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            got = null;
+                try {
+                    got = this.alarmEventRepository.save(new AlarmEvent("1", "0"));
+                    log.info("saved: " + got.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            default:
+                got = null;
+                break;
         }
 
         //send to websocket lcients
